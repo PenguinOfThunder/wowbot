@@ -1,7 +1,9 @@
 // Require the necessary discord.js classes
 import { Client, Intents } from "discord.js";
-import { token } from "./config.json";
+import "dotenv/config";
 import * as wowApi from "./wowapi";
+
+const { DISCORD_TOKEN: token } = process.env;
 
 const wowToMarkdown = (wow: wowApi.Wow) =>
   `${wow.video["1080p"]}\n> ${wow.full_line}\n> \u2015 "${wow.character}" at ${wow.timestamp} in "${wow.movie}" (${wow.year}) directed by ${wow.director}\n(#${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie)`;

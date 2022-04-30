@@ -1,15 +1,14 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
-import * as config from "./config.json";
+import "dotenv/config";
+import type { Config } from "./global";
 
-type Config = {
-  clientId: string;
-  guildId?: string;
-  token: string;
-};
-
-const { clientId, guildId, token } = config as Config;
+const {
+  DISCORD_CLIENT_ID: clientId,
+  DISCORD_GUILD_ID: guildId,
+  DISCORD_TOKEN: token,
+} = process.env as Config;
 
 const commands =
   process.argv[2] === "undeploy"
@@ -19,7 +18,8 @@ const commands =
           .setName("wow")
           .setDescription("Replies with wow!"),
       ].map((command) => command.toJSON());
-console.log(process.argv);
+
+console.log("Commands deployed");
 console.log(commands);
 
 const rest = new REST({ version: "9" }).setToken(token);
