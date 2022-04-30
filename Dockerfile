@@ -6,6 +6,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-# Copy dist to 
 # EXPOSE 8080
 CMD ["npm", "start"]
