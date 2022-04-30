@@ -14,7 +14,10 @@ export type Wow = {
   total_wows_in_movie: number;
   poster: string;
   video: {
-    [format: string]: string;
+    "1080p"?: string;
+    "760p"?: string;
+    "480p"?: string;
+    "360p"?: string;
   };
   audio: string;
 };

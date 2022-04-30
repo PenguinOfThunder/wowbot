@@ -5,8 +5,25 @@ import * as wowApi from "./wowapi";
 
 const { DISCORD_TOKEN: token } = process.env;
 
-const wowToMarkdown = (wow: wowApi.Wow) =>
-  `${wow.video["1080p"]}\n> ${wow.full_line}\n> \u2015 "${wow.character}" at ${wow.timestamp} in "${wow.movie}" (${wow.year}) directed by ${wow.director}\n(#${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie)`;
+const wowToMarkdown = (wow: wowApi.Wow) => {
+  // Pick first listed
+  const videoUrl: string =
+    wow.video["1080p"] ||
+    wow.video["760p"] ||
+    wow.video["480p"] ||
+    wow.video["360p"] ||
+    "";
+  return (
+    `> ${wow.full_line}` +
+    `\n>\n> \u2015 Owen Wilson as *${wow.character}*` +
+    ` in "${wow.movie}" (${wow.year})` +
+    ` directed by ${wow.director}` +
+    ` (${wow.timestamp}` +
+    `, #${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie` +
+    `)\n` +
+    `${videoUrl}`
+  );
+};
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
