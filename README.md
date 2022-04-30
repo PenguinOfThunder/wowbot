@@ -1,5 +1,3 @@
-[![MIT License][license-shield]][license-url]
-
 # Wowbot
 
 Owen Wilson "Wow" Discord Bot.
