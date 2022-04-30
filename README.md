@@ -1,3 +1,5 @@
+[![MIT License][license-shield]][license-url]
+
 # Wowbot
 
 Owen Wilson "Wow" Discord Bot.
@@ -14,7 +16,7 @@ After inviting the bot to your server, just use the `/wow` command.
 ### Commands and parameters
 
 | Command      | Parameters    | Description                               |
-|--------------|---------------|-------------------------------------------|
+| ------------ | ------------- | ----------------------------------------- |
 | `/wow`       | None          | Return a single random wow                |
 |              | `director:`   | Pick from movies by a specific director   |
 |              | `movie:`      | Pick from a specific movie                |
@@ -54,3 +56,8 @@ https://videos.ctfassets.net/bs8ntwkklfua/6bPOrhYfZOA0D8AWms52Ry/687d879a6ff35bc
 
 This bot gets data from the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) by Avi Mamenko. All credit for this goes to him. I just created the bot part.
 
+# Disclaimers
+
+Wowbot is not affiliated, associated, or endorsed by Avraham (Avi) Mamenko or his collaborators.
+
+Wowbot is not affiliated, associated, authorized, endorsed by, or in any way officially connected with Owen Wilson, or any of his subsidiaries or affiliates. All motion pictures, products, and brands mentioned on this website are the respective trademarks and copyrights of their owners.
