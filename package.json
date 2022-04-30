@@ -1,0 +1,27 @@
+{
+  "name": "wowbot",
+  "version": "1.0.0",
+  "description": "Own Wilson Wow Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "deploy-commands": "ts-node deploy-commands.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.13.0",
+    "@discordjs/rest": "^0.4.1",
+    "discord-api-types": "^0.32.0",
+    "discord.js": "^13.6.0",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}
