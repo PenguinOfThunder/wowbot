@@ -1,11 +1,11 @@
 // Require the necessary discord.js classes
-import { Client, Intents } from "discord.js";
+import { CacheType, Client, CommandInteraction, Intents } from "discord.js";
 import "dotenv/config";
 import * as wowApi from "./wowapi";
 
 const { DISCORD_TOKEN: token } = process.env;
 
-const wowToMarkdown = (wow: wowApi.Wow) => {
+const wowToMarkdown = (wow: wowApi.Wow): string => {
   // Pick first listed
   const videoUrl: string =
     wow.video["1080p"] ||
@@ -36,11 +36,16 @@ client.once("ready", () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   try {
-    const { commandName } = interaction;
-
+    const { commandName, user } = interaction;
+    console.log(`${commandName} command issued by ${user.username}`);
     if (commandName === "wow") {
-      const wows = await wowApi.getRandom();
-      await interaction.reply(wowToMarkdown(wows[0]));
+      await handleWowCommand(interaction);
+    } else if (commandName === "movies") {
+      await handleMoviesCommand(interaction);
+    } else if (commandName === "directors") {
+      await handleDirectorsCommand(interaction);
+    } else {
+      interaction.reply("What?");
     }
   } catch (err) {
     console.error(err);
@@ -50,3 +55,40 @@ client.on("interactionCreate", async (interaction) => {
 
 // Login to Discord with your client's token
 client.login(token);
+
+async function handleDirectorsCommand(
+  interaction: CommandInteraction<CacheType>
+) {
+  const list = await wowApi.getDirectors();
+  await interaction.reply(
+    `Directors:\n${list.map((director) => `- ${director}`).join("\n")}`
+  );
+}
+
+async function handleMoviesCommand(interaction: CommandInteraction<CacheType>) {
+  const list = await wowApi.getMovies();
+  await interaction.reply(
+    `Movies:\n${list.map((movie) => `- ${movie}`).join("\n")}`
+  );
+}
+
+async function handleWowCommand(interaction: CommandInteraction<CacheType>) {
+  const opts = interaction.options;
+  const wows = await wowApi.getRandom({
+    director: opts.getString("director"),
+    movie: opts.getString("movie"),
+    year: opts.getInteger("year"),
+    results: opts.getInteger("results"),
+    wow_in_movie: opts.getInteger("occurrence"),
+    sort: "release_date",
+    direction: "asc",
+  });
+  if (!wows || wows.length === 0) {
+    await interaction.reply(
+      "Sorry, I couldn't find anything that matched those criteria."
+    );
+  } else {
+    const content = wows.map((wow) => wowToMarkdown(wow)).join("\n\n");
+    await interaction.reply(content);
+  }
+}

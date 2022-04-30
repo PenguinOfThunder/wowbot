@@ -14,13 +14,54 @@ const commands =
   process.argv[2] === "undeploy"
     ? []
     : [
+        // /wow command
         new SlashCommandBuilder()
           .setName("wow")
-          .setDescription("Replies with wow!"),
+          .setDescription("Replies with wow!")
+          .addStringOption((option) =>
+            option
+              .setName("director")
+              .setDescription("Pick from movies by a specific director")
+          )
+          .addStringOption((option) =>
+            option.setName("movie").setDescription("Pick from a specific movie")
+          )
+          .addIntegerOption((option) =>
+            option
+              .setName("occurrence")
+              .setDescription("The number of the occurrence in the movie")
+              .setMinValue(1)
+              .setMaxValue(10)
+          )
+          .addIntegerOption((option) =>
+            option
+              .setName("results")
+              .setDescription("Number of wows to return")
+              .setMinValue(1)
+              .setMaxValue(100)
+          )
+          .addIntegerOption((option) =>
+            option
+              .setName("year")
+              .setDescription("Pick from a specific year")
+              .setMinValue(1996)
+          ),
+        // /movies command
+        new SlashCommandBuilder()
+          .setName("movies")
+          .setDescription("Return a list of movies with wows"),
+        // /directors command
+        new SlashCommandBuilder()
+          .setName("directors")
+          .setDescription(
+            "Return a list of directors who made movies with wows"
+          ),
       ].map((command) => command.toJSON());
 
 console.log("Commands deployed");
-console.log(commands);
+console.dir(commands, {
+  depth: 5,
+});
 
 const rest = new REST({ version: "9" }).setToken(token);
 

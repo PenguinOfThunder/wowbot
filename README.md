@@ -11,6 +11,29 @@ https://discord.com/api/oauth2/authorize?client_id=969754455820091422&permission
 
 After inviting the bot to your server, just use the `/wow` command.
 
+### Commands and parameters
+
+| Command      | Parameters    | Description                               |
+|--------------|---------------|-------------------------------------------|
+| `/wow`       | None          | Return a single random wow                |
+|              | `director:`   | Pick from movies by a specific director   |
+|              | `movie:`      | Pick from a specific movie                |
+|              | `occurrence:` | The number of the occurrence in the movie |
+|              | `results:`    | Number of wows to return                  |
+|              | `year:`       | Pick from a specific year                 |
+| `/directors` | None          | Show a list of movie directors            |
+| `/movies`    | None          | Show a list of the movies                 |
+
+### Examples
+
+`/wow`
+
+Returns a single random 'wow' by Owen Wilson
+
+`/wow year:1996`
+
+Returns a single random 'wow' from a 1996 movie
+
 ## Response
 
 A response from this bot looks approximately something like this:
@@ -31,17 +54,3 @@ https://videos.ctfassets.net/bs8ntwkklfua/6bPOrhYfZOA0D8AWms52Ry/687d879a6ff35bc
 
 This bot gets data from the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) by Avi Mamenko. All credit for this goes to him. I just created the bot part.
 
-## To-do
-
-Add parameters to /wow command to allow more control of the response:
-
-- results = _number_ - return a given number of random wows
-- year _number_ - return wows from a specific year
-- movie _string_ - return wows from a specific movie
-- director _string_ - return wows from movies with a particular director.
-- occurrence _number_ - return a wow by the number of its occurrence in the movie
-
-Add more commands:
-
-- /movies - return a list of all movies with wows
-- /directors - return a list of all directors
