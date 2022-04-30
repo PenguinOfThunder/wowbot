@@ -11,7 +11,8 @@
     "container": "docker run -d --env-file .env penguinofthunder/wowbot",
     "deploy-commands": "npm run build ; node ./dist/deploy-commands.js",
     "undeploy-commands": "npm run build ; node ./dist/deploy-commands.js undeploy",
-    "service": "docker-compose up -d"
+    "service-up": "docker-compose up -d",
+    "service-down": "docker-compose down"
   },
   "keywords": [
     "wow",
