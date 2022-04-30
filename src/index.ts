@@ -15,7 +15,7 @@ const wowToMarkdown = (wow: wowApi.Wow) => {
     "";
   return (
     `> ${wow.full_line}` +
-    `\n>\n> \u2015 Owen Wilson as *${wow.character}*` +
+    `\n> \n> \u2015 Owen Wilson as *${wow.character}*` +
     ` in "${wow.movie}" (${wow.year})` +
     ` directed by ${wow.director}` +
     ` (${wow.timestamp}` +
@@ -35,12 +35,16 @@ client.once("ready", () => {
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
+  try {
+    const { commandName } = interaction;
 
-  const { commandName } = interaction;
-
-  if (commandName === "wow") {
-    const wows = await wowApi.getRandom();
-    await interaction.reply(wowToMarkdown(wows[0]));
+    if (commandName === "wow") {
+      const wows = await wowApi.getRandom();
+      await interaction.reply(wowToMarkdown(wows[0]));
+    }
+  } catch (err) {
+    console.error(err);
+    await interaction.reply("Oof. Something went wrong. Try again later.");
   }
 });
 
