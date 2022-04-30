@@ -1,6 +1,6 @@
 // Require the necessary discord.js classes
 import { Client, Intents } from "discord.js";
-import { token, clientId, guildId } from "./config.json";
+import { token } from "./config.json";
 import * as wowApi from "./wowapi";
 
 const wowToMarkdown = (wow: wowApi.Wow) =>

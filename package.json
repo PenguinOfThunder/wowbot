@@ -1,16 +1,32 @@
 {
   "name": "wowbot",
   "version": "1.0.0",
-  "description": "Own Wilson Wow Discord bot",
-  "main": "index.js",
+  "description": "Owen Wilson Wow Discord bot",
+  "main": "./dist/index.js",
+  "private": true,
   "scripts": {
-    "start": "ts-node index.ts",
-    "deploy-commands": "ts-node deploy-commands.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/index.js",
+    "build": "tsc -p .",
+    "dockerize": "docker build . -t penguinofthunder/wowbot",
+    "container": "docker run -d penguinofthunder/wowbot",
+    "deploy-commands": "npm run build ; node ./dist/deploy-commands.js",
+    "undeploy-commands": "npm run build ; node ./dist/deploy-commands.js undeploy",
+    "service": "docker-compose up -d"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "wow",
+    "discord"
+  ],
+  "author": "@PenguinOfThunder",
+  "homepage": "https://github.com/PenguinOfThunder/wowbot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PenguinOfThunder/wowbot.git"
+  },
+  "engines": {
+    "node": ">=16.13.2"
+  },
+  "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
@@ -21,7 +37,6 @@
   "devDependencies": {
     "eslint": "^8.14.0",
     "prettier": "^2.6.2",
-    "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   }
 }
