@@ -1,8 +1,12 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import "dotenv/config";
+import { commands } from "./commands";
 import type { Config } from "./global";
+
+/***
+ * This script only needs to run once, or anytime new commands or options are added.
+ ***/
 
 const {
   DISCORD_CLIENT_ID: clientId,
@@ -10,55 +14,12 @@ const {
   DISCORD_TOKEN: token,
 } = process.env as Config;
 
-const commands =
+const commandsToDeploy =
   process.argv[2] === "undeploy"
     ? []
-    : [
-        // /wow command
-        new SlashCommandBuilder()
-          .setName("wow")
-          .setDescription("Replies with wow!")
-          .addStringOption((option) =>
-            option
-              .setName("director")
-              .setDescription("Pick from movies by a specific director")
-          )
-          .addStringOption((option) =>
-            option.setName("movie").setDescription("Pick from a specific movie")
-          )
-          .addIntegerOption((option) =>
-            option
-              .setName("occurrence")
-              .setDescription("The number of the occurrence in the movie")
-              .setMinValue(1)
-              .setMaxValue(10)
-          )
-          .addIntegerOption((option) =>
-            option
-              .setName("results")
-              .setDescription("Number of wows to return")
-              .setMinValue(1)
-              .setMaxValue(100)
-          )
-          .addIntegerOption((option) =>
-            option
-              .setName("year")
-              .setDescription("Pick from a specific year")
-              .setMinValue(1996)
-          ),
-        // /movies command
-        new SlashCommandBuilder()
-          .setName("movies")
-          .setDescription("Return a list of movies with wows"),
-        // /directors command
-        new SlashCommandBuilder()
-          .setName("directors")
-          .setDescription(
-            "Return a list of directors who made movies with wows"
-          ),
-      ].map((command) => command.toJSON());
+    : commands.map((cmd) => cmd.data).map((command) => command.toJSON());
 
-console.log("Commands deployed");
+console.log("Commands to deploy:");
 console.dir(commands, {
   depth: 5,
 });
@@ -70,7 +31,7 @@ if (clientId) {
     // If guild id is specified, only register commands for that guild
     rest
       .put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: commands,
+        body: commandsToDeploy,
       })
       .then(() =>
         console.log("Successfully registered guild application commands.")
@@ -78,11 +39,14 @@ if (clientId) {
       .catch(console.error);
   } else {
     // Otherwise, register globally
+    console.log("No DISCORD_GUILD_ID, deploying globally");
     rest
-      .put(Routes.applicationCommands(clientId), { body: commands })
+      .put(Routes.applicationCommands(clientId), { body: commandsToDeploy })
       .then(() =>
         console.log("Successfully registered global application commands.")
       )
       .catch(console.error);
   }
+} else {
+  throw new Error("Missing DISCORD_CLIENT_ID");
 }

@@ -12,12 +12,13 @@ export type Wow = {
   character: string;
   full_line: string;
   timestamp: string;
+  movie_duration: string;
   current_wow_in_movie: number;
   total_wows_in_movie: number;
   poster: string;
   video: {
     "1080p"?: string;
-    "760p"?: string;
+    "720p"?: string;
     "480p"?: string;
     "360p"?: string;
   };
@@ -53,30 +54,30 @@ export async function getMovies(): Promise<string[]> {
 export async function getRandom(
   opt: WowApiRequest = {}
 ): Promise<WowApiResponse> {
-  const urlWithParms = new URL(`${wowApiUrl}/random`);
+  const urlWithParams = new URL(`${wowApiUrl}/random`);
 
   if (opt.year) {
-    urlWithParms.searchParams.set("year", opt.year.toFixed(0));
+    urlWithParams.searchParams.set("year", opt.year.toFixed(0));
   }
   if (opt.director) {
-    urlWithParms.searchParams.set("director", opt.director);
+    urlWithParams.searchParams.set("director", opt.director);
   }
   if (opt.movie) {
-    urlWithParms.searchParams.set("movie", opt.movie);
+    urlWithParams.searchParams.set("movie", opt.movie);
   }
   if (opt.results > 0) {
-    urlWithParms.searchParams.set("results", opt.results.toFixed(0));
+    urlWithParams.searchParams.set("results", opt.results.toFixed(0));
   }
   if (opt.wow_in_movie > 0) {
-    urlWithParms.searchParams.set("wow_in_movie", opt.wow_in_movie.toFixed(0));
+    urlWithParams.searchParams.set("wow_in_movie", opt.wow_in_movie.toFixed(0));
   }
   if (opt.sort) {
-    urlWithParms.searchParams.set("sort", opt.sort);
+    urlWithParams.searchParams.set("sort", opt.sort);
   }
   if (opt.direction) {
-    urlWithParms.searchParams.set("sort", opt.direction);
+    urlWithParams.searchParams.set("sort", opt.direction);
   }
-  return fetch(urlWithParms.href)
+  return fetch(urlWithParams.href)
     .then((r) => r.json())
     .then((j) => j as WowApiResponse);
 }
