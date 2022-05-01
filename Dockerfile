@@ -1,10 +1,18 @@
-FROM node:16
+FROM node:lts AS build
 # Workdir
 WORKDIR /usr/src/app
 COPY package*.json ./
-# Including dev tools
+# Build dist, which must include dev tools
 RUN npm install
 COPY . .
 RUN npm run build
-# EXPOSE 8080
+
+# Build the runtime environment
+FROM node:lts AS run
+WORKDIR /usr/bin/app
+COPY --from=build --chown=node:node /usr/src/app/package*.json  ./
+COPY --from=build --chown=node:node /usr/src/app/dist/ ./dist/
+ENV NODE_ENV=production
+RUN npm ci
+USER node:node
 CMD ["npm", "start"]

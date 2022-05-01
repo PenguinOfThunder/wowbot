@@ -5,4 +5,9 @@ services:
     container_name: wowbot
     image: penguinofthunder/wowbot:${TAG}
     restart: always
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN:?Missing DISCORD_TOKEN}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
 
