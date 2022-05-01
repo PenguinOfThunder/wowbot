@@ -1,14 +1,18 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CacheType, CommandInteraction } from "discord.js";
+import { BotCommand } from ".";
 import { getMovies } from "../wowapi";
 
-export const data = new SlashCommandBuilder()
-  .setName("movies")
-  .setDescription("Return a list of movies with wows");
+const command: BotCommand = {
+  data: new SlashCommandBuilder()
+    .setName("movies")
+    .setDescription("Return a list of movies with wows"),
+  execute: async function (interaction, logger) {
+    logger.debug("Getting list of movies");
+    const list = await getMovies();
+    await interaction.reply(
+      `Movies:\n${list.map((movie) => `- ${movie}`).join("\n")}`
+    );
+  },
+};
 
-export async function execute(interaction: CommandInteraction<CacheType>) {
-  const list = await getMovies();
-  await interaction.reply(
-    `Movies:\n${list.map((movie) => `- ${movie}`).join("\n")}`
-  );
-}
+export default command;

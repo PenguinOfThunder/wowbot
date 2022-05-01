@@ -1,64 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CacheType, CommandInteraction } from "discord.js";
+import { BotCommand } from ".";
 import { joinUpTo } from "../lib/joinUpTo";
-import { getRandom, Wow } from "../wowapi";
-
-export const data = new SlashCommandBuilder()
-  .setName("wow")
-  .setDescription("Replies with wow!")
-  .addStringOption((option) =>
-    option
-      .setName("director")
-      .setDescription("Pick from movies by a specific director")
-  )
-  .addStringOption((option) =>
-    option.setName("movie").setDescription("Pick from a specific movie")
-  )
-  .addIntegerOption((option) =>
-    option
-      .setName("occurrence")
-      .setDescription("The number of the occurrence in the movie")
-      .setMinValue(1)
-      .setMaxValue(10)
-  )
-  .addIntegerOption((option) =>
-    option
-      .setName("results")
-      .setDescription("Number of wows to return")
-      .setMinValue(1)
-      .setMaxValue(100)
-  )
-  .addIntegerOption((option) =>
-    option
-      .setName("year")
-      .setDescription("Pick from a specific year")
-      .setMinValue(1996)
-  ) as SlashCommandBuilder;
-
-export async function execute(interaction: CommandInteraction<CacheType>) {
-  const opts = interaction.options;
-  const wows = await getRandom({
-    director: opts.getString("director"),
-    movie: opts.getString("movie"),
-    year: opts.getInteger("year"),
-    results: opts.getInteger("results"),
-    wow_in_movie: opts.getInteger("occurrence"),
-    sort: "release_date",
-    direction: "asc",
-  });
-  if (!wows || wows.length === 0) {
-    await interaction.reply(
-      "Sorry, I couldn't find anything that matched those criteria."
-    );
-  } else {
-    const content = joinUpTo(
-      wows.map((wow) => wowToMarkdown(wow)),
-      "\n\n",
-      2000 // max number of characters Discord allows in a reply
-    );
-    await interaction.reply(content);
-  }
-}
+import { getRandom, Wow, WowApiRequest } from "../wowapi";
 
 /**
  * Format a Wow suitable to send in a reply
@@ -84,3 +27,67 @@ export function wowToMarkdown(wow: Wow): string {
     `${videoUrl}`
   );
 }
+
+const command: BotCommand = {
+  data: new SlashCommandBuilder()
+    .setName("wow")
+    .setDescription("Replies with wow!")
+    .addStringOption((option) =>
+      option
+        .setName("director")
+        .setDescription("Pick from movies by a specific director")
+    )
+    .addStringOption((option) =>
+      option.setName("movie").setDescription("Pick from a specific movie")
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("occurrence")
+        .setDescription("The number of the occurrence in the movie")
+        .setMinValue(1)
+        .setMaxValue(10)
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("results")
+        .setDescription("Number of wows to return")
+        .setMinValue(1)
+        .setMaxValue(100)
+    )
+    .addIntegerOption((option) =>
+      option
+        .setName("year")
+        .setDescription("Pick from a specific year")
+        .setMinValue(1996)
+    ) as SlashCommandBuilder,
+  execute: async function (interaction, logger) {
+    const opts = interaction.options;
+    const requestParams: WowApiRequest = {
+      director: opts.getString("director"),
+      movie: opts.getString("movie"),
+      year: opts.getInteger("year"),
+      results: opts.getInteger("results"),
+      wow_in_movie: opts.getInteger("occurrence"),
+      sort: "release_date",
+      direction: "asc",
+    };
+    logger.debug(requestParams, "Executing request for random wow");
+    const wows = await getRandom(requestParams);
+    if (!wows || wows.length === 0) {
+      logger.debug("Found no results, informing user");
+      await interaction.reply(
+        "Sorry, I couldn't find anything that matched those criteria."
+      );
+    } else {
+      const content = joinUpTo(
+        wows.map((wow) => wowToMarkdown(wow)),
+        "\n\n",
+        2000 // max number of characters Discord allows in a reply
+      );
+      logger.debug("Sending reply to user", content);
+      await interaction.reply(content);
+    }
+  },
+};
+
+export default command;

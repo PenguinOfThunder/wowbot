@@ -1,5 +1,20 @@
-import * as directorsCommand from "./directors";
-import * as moviesCommand from "./movies";
-import * as wowCommand from "./wow";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, CacheType } from "discord.js";
+import { Logger, LoggerOptions } from "pino";
+import directorsCommand from "./directors";
+import moviesCommand from "./movies";
+import wowCommand from "./wow";
 
-export const commands = [wowCommand, directorsCommand, moviesCommand];
+export interface BotCommand {
+  data: SlashCommandBuilder;
+  execute: (
+    interaction: CommandInteraction<CacheType>,
+    logger: Logger<LoggerOptions>
+  ) => void;
+}
+
+export const commands: BotCommand[] = [
+  wowCommand,
+  directorsCommand,
+  moviesCommand,
+];
