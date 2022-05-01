@@ -80,4 +80,7 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // Login to Discord with your client's token
+if(!token) {
+  throw new Error("Missing DISCORD_TOKEN!");
+}
 client.login(token);
