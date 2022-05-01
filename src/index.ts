@@ -12,7 +12,7 @@ const { DISCORD_TOKEN: token, LOG_LEVEL: log_level } = process.env;
 
 const logger = pino({
   name: "wowbot",
-  level: log_level,
+  level: log_level || "debug",
   crlf: process.platform === "win32",
 });
 
