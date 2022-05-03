@@ -2,24 +2,13 @@
 import { Client, Intents } from "discord.js";
 import "dotenv/config";
 import { commands } from "./commands";
-import pino from "pino";
+import { logger } from "./logger";
 
 /***
  * This is the main entry point for the bot
  ***/
 
-const { DISCORD_TOKEN: token, LOG_LEVEL: log_level } = process.env;
-
-const logger = pino({
-  name: "wowbot",
-  level: log_level || "debug",
-  crlf: process.platform === "win32",
-});
-
-// Flush logs at least every 10 seconds
-setInterval(() => {
-  logger.flush();
-}, 10000).unref();
+const { DISCORD_TOKEN: token } = process.env;
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -62,7 +51,7 @@ client.on("interactionCreate", async (interaction) => {
       const childLogger = logger.child({
         commandName: commandName,
         userName: user.username,
-        userDiscriminator: user.discriminator,
+        userDiscriminator: user.discriminator
       });
       await cmd.execute(interaction, childLogger);
     } else {
@@ -80,7 +69,7 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // Login to Discord with your client's token
-if(!token) {
+if (!token) {
   throw new Error("Missing DISCORD_TOKEN!");
 }
 client.login(token);
