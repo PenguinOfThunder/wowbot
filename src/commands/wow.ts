@@ -59,6 +59,27 @@ const command: BotCommand = {
         .setName("year")
         .setDescription("Pick from a specific year")
         .setMinValue(1996)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("sort_field")
+        .setDescription("order results by this field")
+        .addChoices(
+          { name: "Movie", value: "movie" },
+          { name: "Release date", value: "release_date" },
+          { name: "Year", value: "year" },
+          { name: "Director", value: "director" },
+          { name: "Occurrence", value: "number_current_wow" }
+        )
+    )
+    .addStringOption((option) =>
+      option
+        .setName("sort_direction")
+        .setDescription("order results ascending or descending")
+        .addChoices(
+          { name: "Ascending", value: "asc" },
+          { name: "Descending", value: "desc" }
+        )
     ) as SlashCommandBuilder,
   execute: async function (interaction, logger) {
     const opts = interaction.options;
@@ -68,8 +89,8 @@ const command: BotCommand = {
       year: opts.getInteger("year"),
       results: opts.getInteger("results"),
       wow_in_movie: opts.getInteger("occurrence"),
-      sort: "release_date",
-      direction: "asc",
+      sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
+      direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc",
     };
     logger.debug(requestParams, "Executing request for random wow");
     const wows = await getRandom(requestParams);
