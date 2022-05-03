@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { BotCommand } from ".";
+import type { BotCommand } from "../types/global";
 import { getDirectors } from "../wowapi";
 
 const command: BotCommand = {

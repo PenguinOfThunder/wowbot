@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { BotCommand } from ".";
+import type { BotCommand } from "../types/global";
 import { getMovies } from "../wowapi";
 
 const command: BotCommand = {
@@ -15,7 +15,7 @@ const command: BotCommand = {
         .map((movie) => `- ${movie}`)
         .join("\n")}`
     );
-  },
+  }
 };
 
 export default command;

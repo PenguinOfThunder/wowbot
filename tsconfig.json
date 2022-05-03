@@ -13,7 +13,7 @@
     "jsx": "react",
     "paths": {
       "*": ["node_modules/*"]
-    }
+    },
     // "typeRoots": ["types", "src/types"]
     // "allowSyntheticDefaultImports": true
   },

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { BotCommand } from ".";
+import type { BotCommand } from "../types/global";
 import { joinUpTo } from "../lib/joinUpTo";
 import { getRandom, Wow, WowApiRequest } from "../wowapi";
 

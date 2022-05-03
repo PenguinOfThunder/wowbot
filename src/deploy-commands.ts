@@ -2,7 +2,7 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import "dotenv/config";
 import { commands } from "./commands";
-import type { Config } from "./global";
+import type { BotConfig } from "./types/global";
 
 /***
  * This script only needs to run once, or anytime new commands or options are added.
@@ -12,7 +12,7 @@ const {
   DISCORD_CLIENT_ID: clientId,
   DISCORD_GUILD_ID: guildId,
   DISCORD_TOKEN: token
-} = process.env as Config;
+} = process.env as BotConfig;
 
 const commandsToDeploy =
   process.argv[2] === "undeploy"
