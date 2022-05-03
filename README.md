@@ -4,6 +4,8 @@ Owen Wilson "Wow" Discord Bot.
 
 Inspired by and powered by the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) (as seen on [HackerNews](https://news.ycombinator.com/item?id=31209924)).
 
+The bot was built by following the [Discord.js guide](https://discordjs.guide/#before-you-begin) and adapting it for Typescript.
+
 Made for the fun of it and to learn more about writing Discord bots!
 
 ## Invite
@@ -30,7 +32,7 @@ After inviting the bot to your server, just use the `/wow` command.
 | `/directors` | None              | Show a list of movie directors            |
 | `/movies`    | None              | Show a list of the movies                 |
 
-### Examples
+### Usage Examples
 
 `/wow`
 
@@ -59,6 +61,14 @@ https://videos.ctfassets.net/bs8ntwkklfua/6bPOrhYfZOA0D8AWms52Ry/687d879a6ff35bc
 ## Data Source
 
 This bot gets data from the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) by Avi Mamenko. All credit for this goes to him. I just created the bot part.
+
+## Development
+
+See [Development](docs/development.md)
+
+# License
+
+This project is licensed under the [MIT license](LICENSE).
 
 # Disclaimers
 
