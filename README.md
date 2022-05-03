@@ -2,6 +2,10 @@
 
 Owen Wilson "Wow" Discord Bot.
 
+Inspired by and powered by the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) (as seen on [HackerNews](https://news.ycombinator.com/item?id=31209924)).
+
+Made for the fun of it and to learn more about writing Discord bots!
+
 ## Invite
 
 Use this link to invite the bot to your server:
@@ -13,16 +17,18 @@ After inviting the bot to your server, just use the `/wow` command.
 
 ### Commands and parameters
 
-| Command      | Parameters    | Description                               |
-| ------------ | ------------- | ----------------------------------------- |
-| `/wow`       | None          | Return a single random wow                |
-|              | `director:`   | Pick from movies by a specific director   |
-|              | `movie:`      | Pick from a specific movie                |
-|              | `occurrence:` | The number of the occurrence in the movie |
-|              | `results:`    | Number of wows to return                  |
-|              | `year:`       | Pick from a specific year                 |
-| `/directors` | None          | Show a list of movie directors            |
-| `/movies`    | None          | Show a list of the movies                 |
+| Command      | Parameters        | Description                               |
+| ------------ | ----------------- | ----------------------------------------- |
+| `/wow`       | None              | Return a single random wow                |
+|              | `director:`       | Pick from movies by a specific director   |
+|              | `movie:`          | Pick from a specific movie                |
+|              | `occurrence:`     | The number of the occurrence in the movie |
+|              | `results:`        | Number of wows to return                  |
+|              | `year:`           | Pick from a specific year                 |
+|              | `sort_field:`     | Which to sort by                          |
+|              | `sort_direction:` | Which direction (asc/desc) to sort in     |
+| `/directors` | None              | Show a list of movie directors            |
+| `/movies`    | None              | Show a list of the movies                 |
 
 ### Examples
 
