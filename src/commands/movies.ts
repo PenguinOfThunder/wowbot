@@ -10,7 +10,10 @@ const command: BotCommand = {
     logger.debug("Getting list of movies");
     const list = await getMovies();
     await interaction.reply(
-      `Movies:\n${list.map((movie) => `- ${movie}`).join("\n")}`
+      `Movies:\n${list
+        .sort((a, b) => a.localeCompare(b))
+        .map((movie) => `- ${movie}`)
+        .join("\n")}`
     );
   },
 };

@@ -10,7 +10,10 @@ const command: BotCommand = {
     logger.debug("Getting list of directors");
     const list = await getDirectors();
     await interaction.reply(
-      `Directors:\n${list.map((director) => `- ${director}`).join("\n")}`
+      `Directors:\n${list
+        .sort((a, b) => a.localeCompare(b))
+        .map((director) => `- ${director}`)
+        .join("\n")}`
     );
   },
 };
