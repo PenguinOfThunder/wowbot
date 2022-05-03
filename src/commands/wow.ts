@@ -90,7 +90,7 @@ const command: BotCommand = {
       results: opts.getInteger("results"),
       wow_in_movie: opts.getInteger("occurrence"),
       sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
-      direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc",
+      direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc"
     };
     logger.debug(requestParams, "Executing request for random wow");
     const wows = await getRandom(requestParams);
@@ -108,7 +108,7 @@ const command: BotCommand = {
       logger.debug("Sending reply to user", content);
       await interaction.reply(content);
     }
-  },
+  }
 };
 
 export default command;

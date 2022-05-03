@@ -15,7 +15,7 @@ const command: BotCommand = {
         .map((director) => `- ${director}`)
         .join("\n")}`
     );
-  },
+  }
 };
 
 export default command;

@@ -11,7 +11,7 @@ import type { Config } from "./global";
 const {
   DISCORD_CLIENT_ID: clientId,
   DISCORD_GUILD_ID: guildId,
-  DISCORD_TOKEN: token,
+  DISCORD_TOKEN: token
 } = process.env as Config;
 
 const commandsToDeploy =
@@ -21,7 +21,7 @@ const commandsToDeploy =
 
 console.log("Commands to deploy:");
 console.dir(commands, {
-  depth: 5,
+  depth: 5
 });
 
 const rest = new REST({ version: "9" }).setToken(token);
@@ -31,7 +31,7 @@ if (clientId) {
     // If guild id is specified, only register commands for that guild
     rest
       .put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: commandsToDeploy,
+        body: commandsToDeploy
       })
       .then(() =>
         console.log("Successfully registered guild application commands.")
