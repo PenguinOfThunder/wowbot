@@ -1,3 +1,7 @@
+import type { SlashCommandBuilder } from "@discordjs/builders";
+import type { CacheType, ClientEvents, CommandInteraction } from "discord.js";
+import type { Logger, LoggerOptions } from "pino";
+
 export type BotConfig = {
   DISCORD_CLIENT_ID?: string;
   DISCORD_GUILD_ID?: string;

@@ -1,10 +1,11 @@
-import type { BotCommand } from "../types/global";
 import directorsCommand from "./directors";
 import moviesCommand from "./movies";
 import wowCommand from "./wow";
+import helpCommand from "./help";
 
-export const commands: BotCommand[] = [
+export const commands = [
   wowCommand,
   directorsCommand,
-  moviesCommand
+  moviesCommand,
+  helpCommand
 ];

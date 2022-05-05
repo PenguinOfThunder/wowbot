@@ -2,6 +2,8 @@ import type { Logger } from "pino";
 import { getRandom } from "../wowapi";
 import type { BotEvent } from "../types/global";
 import { Client } from "discord.js";
+import { ActivityTypes } from "discord.js/typings/enums";
+import { PresenceUpdateStatus } from "discord-api-types/v10";
 
 /**
  * Pick a random movie to watch and set the status to that.
@@ -13,19 +15,29 @@ const watchRandomMovie = async ({
   client: Client<boolean>;
   logger: Logger;
 }) => {
-  const randomMovie = (await getRandom({}))[0].movie;
+  const randomMovie = (await getRandom({}))[0];
   client.user.setPresence({
-    status: "online",
-    activities: [{ name: randomMovie, type: "WATCHING" }]
+    status: PresenceUpdateStatus.Online,
+    activities: [
+      {
+        name: randomMovie.movie,
+        type: ActivityTypes.WATCHING
+      }
+    ]
   });
-  logger.debug("Set presence to 'watching %s'", randomMovie);
+  logger.debug(
+    "Set presence to %s. Activity: %s %s",
+    client.user.presence.status,
+    client.user.presence.activities[0].type,
+    client.user.presence.activities[0].name
+  );
 };
 
 export default ({ logger }: { logger: Logger }): BotEvent<"ready"> => ({
   name: "ready",
   once: true,
   execute: async (client) => {
-    logger.info("Ready");
+    logger.info("Ready on %d guilds", client.guilds.cache.size);
     try {
       watchRandomMovie({ client, logger });
       // switch movies every two hours
