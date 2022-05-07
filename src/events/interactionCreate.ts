@@ -37,7 +37,10 @@ export default ({
       }
     } catch (err) {
       logger.error(err, "An unexpected error occurred");
-      await interaction.reply("Oof. Something went wrong. Try again later.");
+      await interaction.reply({
+        content: "Oof. Something went wrong. Try again later.",
+        ephemeral: true
+      });
     } finally {
       logger.flush();
     }

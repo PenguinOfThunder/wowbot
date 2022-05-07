@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import type { BotCommand } from "../types/global";
 import { joinUpTo } from "../lib/joinUpTo";
+import type { BotCommand } from "../types/global";
 import { getRandom, Wow, WowApiRequest } from "../wowapi";
 
 /**
@@ -96,10 +96,12 @@ const command: BotCommand = {
     const wows = await getRandom(requestParams);
     if (!wows || wows.length === 0) {
       logger.debug("Found no results, informing user");
-      await interaction.reply(
-        "Sorry, I couldn't find anything that matched those criteria."
-      );
+      await interaction.reply({
+        content: "Sorry, I couldn't find anything that matched those criteria.",
+        ephemeral: true
+      });
     } else {
+      // Send text reply
       const content = joinUpTo(
         wows.map((wow) => wowToMarkdown(wow)),
         "\n\n",

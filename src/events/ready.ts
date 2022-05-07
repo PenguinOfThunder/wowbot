@@ -4,6 +4,7 @@ import type { BotEvent } from "../types/global";
 import { Client } from "discord.js";
 import { ActivityTypes } from "discord.js/typings/enums";
 import { PresenceUpdateStatus } from "discord-api-types/v10";
+import { generateDependencyReport } from "@discordjs/voice";
 
 /**
  * Pick a random movie to watch and set the status to that.
@@ -36,8 +37,9 @@ const watchRandomMovie = async ({
 export default ({ logger }: { logger: Logger }): BotEvent<"ready"> => ({
   name: "ready",
   once: true,
-  execute: async (client) => {
+  execute: async (client) => {    
     logger.info("Ready on %d guilds", client.guilds.cache.size);
+    logger.debug(generateDependencyReport());
     try {
       watchRandomMovie({ client, logger });
       // switch movies every two hours

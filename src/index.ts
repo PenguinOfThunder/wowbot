@@ -9,7 +9,12 @@ import { logger } from "./logger";
  ***/
 
 // Create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS, // Required for all functions
+    Intents.FLAGS.GUILD_VOICE_STATES // REQUIRED for voice function
+  ]
+});
 
 // Add shutdown handler
 process.once("exit", (code) => {
