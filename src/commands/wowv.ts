@@ -28,21 +28,22 @@ function getOrCreateConnection(
     connection = joinVoiceChannel({
       channelId,
       guildId: guildId,
-      adapterCreator: voiceAdapterCreator
-    });
-    connection.on("error", (err) => {
-      logger.error(err, "Voice connection error");
-    });
-    //   .on("stateChange", (oldState, newState) => {
-    //     logger.debug(
-    //       "Voice connection changed state from %s to %s",
-    //       oldState.status,
-    //       newState.status
-    //     );
-    //   })
-    //   .on("debug", (msg) => {
-    //     logger.debug(msg, "Connection debug");
-    //   })
+      adapterCreator: voiceAdapterCreator,
+      debug: logger.isLevelEnabled("debug")
+    })
+      .on("error", (err) => {
+        logger.error(err, "Voice connection error");
+      })
+      .on("stateChange", (oldState, newState) => {
+        logger.debug(
+          "Voice connection changed state from %s to %s",
+          oldState.status,
+          newState.status
+        );
+      })
+      .on("debug", (msg) => {
+        logger.debug(msg, "Connection debug");
+      });
   }
   return connection;
 }
@@ -50,23 +51,24 @@ function getOrCreateConnection(
 function createSoundPlayer(logger: Logger) {
   //   logger.debug("Creating audio player");
   return createAudioPlayer({
-    debug: true,
+    debug: logger.isLevelEnabled("debug"),
     behaviors: {
       noSubscriber: NoSubscriberBehavior.Pause
     }
-  }).on("error", (err) => {
-    logger.error(err, "Audio Player error");
-  });
-  // .on("stateChange", (oldState, newState) => {
-  //   logger.debug(
-  //     "Player changed state from %s to %s",
-  //     oldState.status,
-  //     newState.status
-  //   );
-  // })
-  // .on("debug", (msg) => {
-  //   logger.debug(msg, "Player debug");
-  // })
+  })
+    .on("error", (err) => {
+      logger.error(err, "Audio Player error");
+    })
+    .on("stateChange", (oldState, newState) => {
+      logger.debug(
+        "Player changed state from %s to %s",
+        oldState.status,
+        newState.status
+      );
+    })
+    .on("debug", (msg) => {
+      logger.debug(msg, "Player debug");
+    });
 }
 
 /**
