@@ -34,7 +34,7 @@ function getOrCreateConnection(
       .on("error", (err) => {
         logger.error(err, "Voice connection error");
       })
-      .on("stateChange", (oldState, newState) => {
+      .on<"stateChange">("stateChange", (oldState, newState) => {
         logger.debug(
           "Voice connection changed state from %s to %s",
           oldState.status,
@@ -59,7 +59,7 @@ function createSoundPlayer(logger: Logger) {
     .on("error", (err) => {
       logger.error(err, "Audio Player error");
     })
-    .on("stateChange", (oldState, newState) => {
+    .on<"stateChange">("stateChange", (oldState, newState) => {
       logger.debug(
         "Player changed state from %s to %s",
         oldState.status,
@@ -163,7 +163,7 @@ const command: BotCommand = {
     }
     const { voice } = member as GuildMember;
     const { channelId, channel, guild } = voice || {};
-    if (!channel) {
+    if (!channel || !channelId) {
       logger.info("User is not in a voice channel");
       await interaction.reply({
         content: "You have to be in a voice channel before I can join you!",
@@ -175,11 +175,11 @@ const command: BotCommand = {
     const { name: channelName } = channel;
 
     const requestParams: WowApiRequest = {
-      director: opts.getString("director"),
-      movie: opts.getString("movie"),
-      year: opts.getInteger("year"),
+      director: opts.getString("director") || undefined,
+      movie: opts.getString("movie") || undefined,
+      year: opts.getInteger("year") || undefined,
       results: Math.min(opts.getInteger("results") || 1, 10),
-      wow_in_movie: opts.getInteger("occurrence"),
+      wow_in_movie: opts.getInteger("occurrence") || undefined,
       sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
       direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc"
     };
@@ -205,7 +205,7 @@ const command: BotCommand = {
     });
 
     // Get a connection
-    let connection = getOrCreateConnection(
+    const connection = getOrCreateConnection(
       guildId,
       channelId,
       voiceAdapterCreator,

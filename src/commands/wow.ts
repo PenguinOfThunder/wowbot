@@ -84,11 +84,11 @@ const command: BotCommand = {
   execute: async function (interaction, logger) {
     const opts = interaction.options;
     const requestParams: WowApiRequest = {
-      director: opts.getString("director"),
-      movie: opts.getString("movie"),
-      year: opts.getInteger("year"),
-      results: opts.getInteger("results"),
-      wow_in_movie: opts.getInteger("occurrence"),
+      director: opts.getString("director") || undefined,
+      movie: opts.getString("movie") || undefined,
+      year: opts.getInteger("year") || undefined,
+      results: opts.getInteger("results") || undefined,
+      wow_in_movie: opts.getInteger("occurrence") || undefined,
       sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
       direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc"
     };

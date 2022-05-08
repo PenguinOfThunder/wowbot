@@ -17,7 +17,7 @@ const watchRandomMovie = async ({
   logger: Logger;
 }) => {
   const randomMovie = (await getRandom({}))[0];
-  client.user.setPresence({
+  client.user?.setPresence({
     status: PresenceUpdateStatus.Online,
     activities: [
       {
@@ -28,23 +28,23 @@ const watchRandomMovie = async ({
   });
   logger.debug(
     "Set presence to %s. Activity: %s %s",
-    client.user.presence.status,
-    client.user.presence.activities[0].type,
-    client.user.presence.activities[0].name
+    client.user?.presence.status,
+    client.user?.presence.activities[0].type,
+    client.user?.presence.activities[0].name
   );
 };
 
 export default ({ logger }: { logger: Logger }): BotEvent<"ready"> => ({
   name: "ready",
   once: true,
-  execute: async (client) => {    
+  execute: async (client) => {
     logger.info("Ready on %d guilds", client.guilds.cache.size);
     logger.debug(generateDependencyReport());
     try {
-      watchRandomMovie({ client, logger });
+      await watchRandomMovie({ client, logger });
       // switch movies every two hours
       setInterval(() => {
-        watchRandomMovie({ client, logger });
+        void watchRandomMovie({ client, logger });
       }, 2 * 60 * 60 * 1000);
     } catch (err) {
       logger.warn(err, "Failed to set set presence");

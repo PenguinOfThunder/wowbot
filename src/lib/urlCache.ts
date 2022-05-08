@@ -17,9 +17,8 @@ export const fetchContent = async (url: string): Promise<fs.ReadStream> => {
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
-    const content = await res.body;
     const outs = await fs.promises.open(fileName, "w", 0o600);
-    await stream.promises.pipeline(content, outs.createWriteStream());
+    await stream.promises.pipeline(res.body, outs.createWriteStream());
   }
   // return from file cache
   //   console.log(`Streaming clip from ${fileName}`);

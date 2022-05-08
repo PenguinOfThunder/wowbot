@@ -1,5 +1,10 @@
 import type { SlashCommandBuilder } from "@discordjs/builders";
-import type { CacheType, ClientEvents, CommandInteraction } from "discord.js";
+import type {
+  Awaitable,
+  CacheType,
+  ClientEvents,
+  CommandInteraction
+} from "discord.js";
 import type { Logger, LoggerOptions } from "pino";
 
 export type BotConfig = {
@@ -13,7 +18,7 @@ export interface BotCommand {
   execute: (
     interaction: CommandInteraction<CacheType>,
     logger: Logger<LoggerOptions>
-  ) => void;
+  ) => Promise<void>;
 }
 
 export interface BotEvent<K extends keyof ClientEvents> {
@@ -22,4 +27,4 @@ export interface BotEvent<K extends keyof ClientEvents> {
   execute: (...args: ClientEvents[K]) => Awaitable<void>;
 }
 
-export interface BotEvents extends Array<BotEvent<any>> {}
+export type BotEvents = Array<BotEvent<never>>;

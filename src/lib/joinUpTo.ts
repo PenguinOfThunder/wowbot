@@ -7,8 +7,8 @@
  */
 export function joinUpTo(
   a: string[],
-  delimiter: string = ",",
-  maxLength?: number
+  delimiter = ",",
+  maxLength: number
 ): string {
   let str = "";
   for (let i = 0; i < a.length; i++) {

@@ -34,4 +34,8 @@ const { DISCORD_TOKEN: token } = process.env;
 if (!token) {
   throw new Error("Missing DISCORD_TOKEN!");
 }
-client.login(token);
+
+// Await async
+void (async () => {
+  await client.login(token);
+})();

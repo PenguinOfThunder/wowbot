@@ -19,10 +19,13 @@ export const registerEvents = ({
     error({ logger }),
     interactionCreate({ logger, commands })
   ].forEach((ev) => {
+    const evName = ev.name;
     if (ev.once) {
-      client.once(ev.name, ev.execute);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      client.once<any>(evName, ev.execute);
     } else {
-      client.on(ev.name, ev.execute);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      client.on<any>(evName, ev.execute);
     }
   });
 };

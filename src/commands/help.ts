@@ -6,7 +6,7 @@ import { joinUpTo } from "../lib/joinUpTo";
 const helpCommand: BotCommand = {
   data: new SlashCommandBuilder()
     .setName("help")
-    .setDescription("Show help on all bot commands") as SlashCommandBuilder,
+    .setDescription("Show help on all bot commands"),
 
   execute: async function (interaction, logger) {
     logger.debug("Help command issued");

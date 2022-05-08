@@ -65,11 +65,14 @@ export async function getRandom(
   if (opt.movie) {
     urlWithParams.searchParams.set("movie", opt.movie);
   }
-  if (opt.results > 0) {
+  if (opt.results !== undefined && opt.results > 0) {
     urlWithParams.searchParams.set("results", opt.results.toFixed(0));
   }
-  if (opt.wow_in_movie > 0) {
-    urlWithParams.searchParams.set("wow_in_movie", opt.wow_in_movie.toFixed(0));
+  if (opt.wow_in_movie !== undefined && opt.wow_in_movie > 0) {
+    urlWithParams.searchParams.set(
+      "wow_in_movie",
+      opt.wow_in_movie?.toFixed(0)
+    );
   }
   if (opt.sort) {
     urlWithParams.searchParams.set("sort", opt.sort);
