@@ -35,7 +35,14 @@ if (!token) {
   throw new Error("Missing DISCORD_TOKEN!");
 }
 
-// Await async
+// Top-level await needs wrapped in an immediately invoked function expression (IIFE)
 void (async () => {
-  await client.login(token);
+  try {
+    logger.info("Attempting login");
+    // login returns immediately, but other promises are pending that keep the process alive
+    await client.login(token);
+  } catch (err) {
+    logger.error(err, "Login error");
+    throw err; // rethrow
+  }
 })();
