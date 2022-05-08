@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "build": "tsc -p .",
+    "watch": "tsc -p . -w",
     "lint": "eslint src --ext .ts",
     "prettier": "prettier -c ./src",
     "test": "ts-mocha -p tsconfig.json test/**/*.spec.ts",
