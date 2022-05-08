@@ -53,15 +53,7 @@ Returns a single random 'wow' from a 1996 movie
 
 A text response from this bot looks approximately something like this:
 
----
-
-> Wow, getting a nice preview of what marriage is gonna be like with Ike Turner here.
->
-> ― Owen Wilson as _John Beckwith_ in "Wedding Crashers" (2005) directed by David Dobkin (01:58:50, #6 of 6 wows in the movie)
-
-https://videos.ctfassets.net/bs8ntwkklfua/6bPOrhYfZOA0D8AWms52Ry/687d879a6ff35bcd446a771b011a6882/Wedding_Crashers_Wow_6_1080p.mp4
-
----
+![wowbot_reply](https://user-images.githubusercontent.com/4072465/167308370-c04fae51-6a29-44f0-ba8b-dd58b9fe4767.png)
 
 (Discord will usually display a playable inline preview of the video below the message.)
 
