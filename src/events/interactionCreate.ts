@@ -1,5 +1,5 @@
 import type { Logger } from "pino";
-import type { BotCommand, BotEvent } from "../types/global";
+import type { BotCommand, BotEvent } from "../types";
 
 export default ({
   logger,

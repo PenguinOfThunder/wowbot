@@ -1,56 +1,43 @@
 import fetch from "node-fetch";
+import { WowApiError } from "./WowApiError";
+import { WowApiRequest } from "./WowApiRequest";
+import { WowApiResponse } from "./WowApiResponse";
+import { WowDirectorsResponse } from "./WowDirectorsResponse";
+import { WowMoviesResponse } from "./WowMoviesResponse";
 
 // Base URL to API for https://owen-wilson-wow-api.herokuapp.com/
 const wowApiUrl = "https://owen-wilson-wow-api.herokuapp.com/wows";
 
-// A unit wow
-export type Wow = {
-  movie: string;
-  year: number;
-  release_date: string;
-  director: string;
-  character: string;
-  full_line: string;
-  timestamp: string;
-  movie_duration: string;
-  current_wow_in_movie: number;
-  total_wows_in_movie: number;
-  poster: string;
-  video: {
-    "1080p"?: string;
-    "720p"?: string;
-    "480p"?: string;
-    "360p"?: string;
-  };
-  audio: string;
-};
-
-// A response can have one or more wows
-export type WowApiResponse = Wow[];
-
-// Options we are allowed to pass in to the API as query parameters
-export type WowApiRequest = {
-  results?: number;
-  year?: number;
-  movie?: string;
-  director?: string;
-  wow_in_movie?: number;
-  sort?: "movie" | "release_date" | "year" | "director" | "number_current_wow";
-  direction?: "asc" | "desc";
-};
-
-export async function getDirectors(): Promise<string[]> {
-  return fetch(`${wowApiUrl}/directors`)
-    .then((r) => r.json())
-    .then((j) => j as string[]);
+/**
+ * Get a list of known director names
+ * @returns A list of director names
+ * @throws {WowApiError} if a fetch error occurs.
+ */
+export async function getDirectors(): Promise<WowDirectorsResponse> {
+  const r = await fetch(`${wowApiUrl}/directors`);
+  if (!r.ok) throw new WowApiError("Fetching directors failed", r);
+  const j = (await r.json()) as WowDirectorsResponse;
+  return j;
 }
 
-export async function getMovies(): Promise<string[]> {
-  return fetch(`${wowApiUrl}/movies`)
-    .then((r) => r.json())
-    .then((j) => j as string[]);
+/**
+ * Get a list of known movie titles
+ * @returns a list of movie titles
+ * @throws {WowApiError} if a fetch error occurs.
+ */
+export async function getMovies(): Promise<WowMoviesResponse> {
+  const r = await fetch(`${wowApiUrl}/movies`);
+  if (!r.ok) throw new WowApiError("Fetching movies failed", r);
+  const j = (await r.json()) as WowMoviesResponse;
+  return j;
 }
 
+/**
+ * Get a list of random wows from the API
+ * @param opt request options
+ * @returns one or more random wows
+ * @throws {WowApiError} if a fetch error occurs.
+ */
 export async function getRandom(
   opt: WowApiRequest = {}
 ): Promise<WowApiResponse> {
@@ -80,7 +67,19 @@ export async function getRandom(
   if (opt.direction) {
     urlWithParams.searchParams.set("sort", opt.direction);
   }
-  return fetch(urlWithParams.href)
-    .then((r) => r.json())
-    .then((j) => j as WowApiResponse);
+  const r = await fetch(urlWithParams.href);
+  // Throw on HTTP error
+  if (!r.ok) throw new WowApiError("Fetching random failed", r);
+
+  // Assert that it is a Wow API response
+  const j: WowApiResponse = (await r.json()) as WowApiResponse;
+  return j;
 }
+
+// re-export
+export * from "./Wow";
+export * from "./WowApiError";
+export * from "./WowApiRequest";
+export * from "./WowApiResponse";
+export * from "./WowDirectorsResponse";
+export * from "./WowMoviesResponse";

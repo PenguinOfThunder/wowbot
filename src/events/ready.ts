@@ -1,10 +1,10 @@
-import type { Logger } from "pino";
-import { getRandom } from "../wowapi";
-import type { BotEvent } from "../types/global";
+import { generateDependencyReport } from "@discordjs/voice";
+import { PresenceUpdateStatus } from "discord-api-types/v10";
 import { Client } from "discord.js";
 import { ActivityTypes } from "discord.js/typings/enums";
-import { PresenceUpdateStatus } from "discord-api-types/v10";
-import { generateDependencyReport } from "@discordjs/voice";
+import type { Logger } from "pino";
+import type { BotEvent } from "../types";
+import { getRandom } from "../wowapi";
 
 /**
  * Pick a random movie to watch and set the status to that.
@@ -16,6 +16,7 @@ const watchRandomMovie = async ({
   client: Client<boolean>;
   logger: Logger;
 }) => {
+  // Expect at least one to come back
   const randomMovie = (await getRandom({}))[0];
   client.user?.setPresence({
     status: PresenceUpdateStatus.Online,

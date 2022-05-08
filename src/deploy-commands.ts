@@ -2,7 +2,7 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import "dotenv/config";
 import { commands } from "./commands";
-import type { BotConfig } from "./types/global";
+import { BotConfig } from "./types/BotConfig";
 
 /***
  * This script only needs to run once, or anytime new commands or options are added.

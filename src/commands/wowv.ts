@@ -14,8 +14,9 @@ import {
 import { GuildMember } from "discord.js";
 import { Logger } from "pino";
 import { fetchContent } from "../lib/urlCache";
-import type { BotCommand } from "../types/global";
-import { getRandom, Wow, WowApiRequest } from "../wowapi";
+import type { BotCommand } from "../types";
+import type { Wow, WowApiRequest } from "../wowapi";
+import { getRandom } from "../wowapi";
 
 function getOrCreateConnection(
   guildId: string,

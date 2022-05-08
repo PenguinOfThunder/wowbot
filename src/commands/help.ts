@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import type { BotCommand } from "../types/global";
 import { commands } from "."; // yes, it works
 import { joinUpTo } from "../lib/joinUpTo";
+import type { BotCommand } from "../types";
 
 const helpCommand: BotCommand = {
   data: new SlashCommandBuilder()

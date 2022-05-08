@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { joinUpTo } from "../lib/joinUpTo";
-import type { BotCommand } from "../types/global";
-import { getRandom, Wow, WowApiRequest } from "../wowapi";
+import type { BotCommand } from "../types";
+import type { Wow, WowApiRequest } from "../wowapi";
+import { getRandom } from "../wowapi";
 
 /**
  * Format a Wow suitable to send in a reply

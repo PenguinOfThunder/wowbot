@@ -1,9 +1,9 @@
 /**
  * A fancier version of String.join() with maximum string length limits.
- * @param {string[]} a An array of strings
- * @param {string} delimiter The delimiter to join on
- * @param {number} maxLength The maximum length
- * @returns {string} A string with as many elements of a as will fit in less than maxLength characters
+ * @param a An array of strings
+ * @param delimiter The delimiter to join on
+ * @param maxLength The maximum length
+ * @returns A string with as many elements of a as will fit in less than maxLength characters
  */
 export function joinUpTo(
   a: string[],
