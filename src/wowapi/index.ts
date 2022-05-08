@@ -1,12 +1,24 @@
 import fetch from "node-fetch";
+import * as schema from "./schema";
 import { WowApiError } from "./WowApiError";
-import { WowApiRequest } from "./WowApiRequest";
-import { WowApiResponse } from "./WowApiResponse";
-import { WowDirectorsResponse } from "./WowDirectorsResponse";
-import { WowMoviesResponse } from "./WowMoviesResponse";
 
-// Base URL to API for https://owen-wilson-wow-api.herokuapp.com/
-const wowApiUrl = "https://owen-wilson-wow-api.herokuapp.com/wows";
+// re-export API types
+export type Wow = schema.components["schemas"]["Wow"];
+export type Wows = schema.components["schemas"]["Wows"];
+export type WowApiRequest = schema.operations["random"]["parameters"]["query"];
+export type WowApiResponse =
+  schema.operations["random"]["responses"]["200"]["content"]["application/json"];
+export type WowDirectorsResponse =
+  schema.operations["directors"]["responses"]["200"]["content"]["application/json"];
+export type WowMoviesResponse =
+  schema.operations["movies"]["responses"]["200"]["content"]["application/json"];
+export * from "./WowApiError";
+
+// API paths
+const baseUrl = "https://owen-wilson-wow-api.herokuapp.com/wows";
+const getDirectorsUrl = `${baseUrl}/directors`;
+const getMoviesUrl = `${baseUrl}/movies`;
+const getRandomUrl = `${baseUrl}/random`;
 
 /**
  * Get a list of known director names
@@ -14,7 +26,7 @@ const wowApiUrl = "https://owen-wilson-wow-api.herokuapp.com/wows";
  * @throws {WowApiError} if a fetch error occurs.
  */
 export async function getDirectors(): Promise<WowDirectorsResponse> {
-  const r = await fetch(`${wowApiUrl}/directors`);
+  const r = await fetch(getDirectorsUrl);
   if (!r.ok) throw new WowApiError("Fetching directors failed", r);
   const j = (await r.json()) as WowDirectorsResponse;
   return j;
@@ -26,7 +38,7 @@ export async function getDirectors(): Promise<WowDirectorsResponse> {
  * @throws {WowApiError} if a fetch error occurs.
  */
 export async function getMovies(): Promise<WowMoviesResponse> {
-  const r = await fetch(`${wowApiUrl}/movies`);
+  const r = await fetch(getMoviesUrl);
   if (!r.ok) throw new WowApiError("Fetching movies failed", r);
   const j = (await r.json()) as WowMoviesResponse;
   return j;
@@ -41,7 +53,7 @@ export async function getMovies(): Promise<WowMoviesResponse> {
 export async function getRandom(
   opt: WowApiRequest = {}
 ): Promise<WowApiResponse> {
-  const urlWithParams = new URL(`${wowApiUrl}/random`);
+  const urlWithParams = new URL(getRandomUrl);
 
   if (opt.year) {
     urlWithParams.searchParams.set("year", opt.year.toFixed(0));
@@ -75,11 +87,3 @@ export async function getRandom(
   const j: WowApiResponse = (await r.json()) as WowApiResponse;
   return j;
 }
-
-// re-export
-export * from "./Wow";
-export * from "./WowApiError";
-export * from "./WowApiRequest";
-export * from "./WowApiResponse";
-export * from "./WowDirectorsResponse";
-export * from "./WowMoviesResponse";

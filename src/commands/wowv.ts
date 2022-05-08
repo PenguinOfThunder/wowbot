@@ -15,7 +15,7 @@ import { GuildMember } from "discord.js";
 import { Logger } from "pino";
 import { fetchContent } from "../lib/urlCache";
 import type { BotCommand } from "../types";
-import type { Wow, WowApiRequest } from "../wowapi";
+import type { WowApiRequest } from "../wowapi";
 import { getRandom } from "../wowapi";
 
 function getOrCreateConnection(
@@ -70,31 +70,6 @@ function createSoundPlayer(logger: Logger) {
     .on("debug", (msg) => {
       logger.debug(msg, "Player debug");
     });
-}
-
-/**
- * Format a Wow suitable to send in a reply
- * @param wow The Wow data
- * @returns message formatted in Discord Markdown
- */
-export function wowToMarkdown(wow: Wow): string {
-  // Pick first format listed
-  const videoUrl: string =
-    wow.video["1080p"] ||
-    wow.video["720p"] ||
-    wow.video["480p"] ||
-    wow.video["360p"] ||
-    "";
-  return (
-    `> ${wow.full_line}` +
-    `\n> \n> \u2015 Owen Wilson as *${wow.character}*` +
-    ` in "${wow.movie}" (${wow.year})` +
-    ` directed by ${wow.director}` +
-    ` (${wow.timestamp}` +
-    `, #${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie` +
-    `)\n` +
-    `${videoUrl}`
-  );
 }
 
 const command: BotCommand = {
@@ -220,28 +195,32 @@ const command: BotCommand = {
       connection.subscribe(player);
       logger.debug("Playing each matching wow in turn (%d)", wows.length);
       for (const wow of wows) {
-        const audioStream = await fetchContent(wow.audio);
-        const { stream, type } = await demuxProbe(audioStream);
-        const clip = createAudioResource(stream, {
-          inputType: type,
-          inlineVolume: false,
-          metadata: {
-            audioUrl: wow.audio
-          }
-        });
+        if (wow.audio) {
+          const audioStream = await fetchContent(wow.audio);
+          const { stream, type } = await demuxProbe(audioStream);
+          const clip = createAudioResource(stream, {
+            inputType: type,
+            inlineVolume: false,
+            metadata: {
+              audioUrl: wow.audio
+            }
+          });
 
-        logger.debug(
-          `Playing %s dur %s type %s`,
-          wow.audio,
-          clip.playbackDuration,
-          type
-        );
-        player.play(clip);
-        await entersState(player, AudioPlayerStatus.Playing, 5000); // At most play 5 seconds
-        await Promise.race([
-          entersState(player, AudioPlayerStatus.AutoPaused, 5000),
-          entersState(player, AudioPlayerStatus.Idle, 5000)
-        ]);
+          logger.debug(
+            `Playing %s dur %s type %s`,
+            wow.audio,
+            clip.playbackDuration,
+            type
+          );
+          player.play(clip);
+          await entersState(player, AudioPlayerStatus.Playing, 5000); // At most play 5 seconds
+          await Promise.race([
+            entersState(player, AudioPlayerStatus.AutoPaused, 5000),
+            entersState(player, AudioPlayerStatus.Idle, 5000)
+          ]);
+        } else {
+          logger.debug("No audio clip found for that wow");
+        }
       }
     } catch (err) {
       logger.error(err, "Voice wow error");

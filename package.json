@@ -17,7 +17,8 @@
     "deploy-commands": "npm run build ; node ./dist/src/deploy-commands.js",
     "undeploy-commands": "npm run build ; node ./dist/src/deploy-commands.js undeploy",
     "service-up": "docker-compose up -d",
-    "service-down": "docker-compose down"
+    "service-down": "docker-compose down",
+    "generate-api-schema": "npx openapi-typescript https://raw.githubusercontent.com/amamenko/owen-wilson-wow-api/main/openapi.yml --output src/wowapi/schema.ts"
   },
   "keywords": [
     "wow",

@@ -12,20 +12,27 @@ import { getRandom } from "../wowapi";
 export function wowToMarkdown(wow: Wow): string {
   // Pick first format listed
   const videoUrl: string =
-    wow.video["1080p"] ||
-    wow.video["720p"] ||
-    wow.video["480p"] ||
-    wow.video["360p"] ||
+    wow.video?.["1080p"] ||
+    wow.video?.["720p"] ||
+    wow.video?.["480p"] ||
+    wow.video?.["360p"] ||
     "";
   return (
-    `> ${wow.full_line}` +
-    `\n> \n> \u2015 Owen Wilson as *${wow.character}*` +
-    ` in "${wow.movie}" (${wow.year})` +
-    ` directed by ${wow.director}` +
-    ` (${wow.timestamp}` +
-    `, #${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie` +
-    `)\n` +
-    `${videoUrl}`
+    (wow.full_line ? `> ${wow.full_line}` : "") +
+    `\n> \n> \u2015 Owen Wilson ` +
+    (wow.character ? ` as *${wow.character}*` : "") +
+    (wow.movie ? ` in "${wow.movie}"` : "") +
+    (wow.year ? ` (${wow.year})` : "") +
+    (wow.director ? ` directed by ${wow.director}` : "") +
+    (wow.timestamp || wow.current_wow_in_movie
+      ? " (" +
+        (wow.timestamp ? `${wow.timestamp}, ` : "") +
+        (wow.current_wow_in_movie && wow.total_wows_in_movie
+          ? `#${wow.current_wow_in_movie} of ${wow.total_wows_in_movie} wows in the movie`
+          : "") +
+        `)`
+      : "") +
+    `\n${videoUrl}`
   );
 }
 
