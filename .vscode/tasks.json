@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$tsc"],
+      "label": "npm: build",
+      "detail": "tsc -p ."
+    },
+    {
+      "type": "npm",
+      "script": "watch",
+      "group": "build",
+      "problemMatcher": ["$tsc-watch"],
+      "label": "npm: watch",
+      "detail": "tsc -p . -w"
+    },
+    {
+      "type": "npm",
+      "script": "clean",
+      "problemMatcher": [],
+      "label": "npm: clean",
+      "detail": "rimraf ./dist"
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "label": "npm: test"
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "label": "npm: lint",
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "dockerize",
+      "problemMatcher": [],
+      "label": "npm: dockerize",
+      "detail": "docker build . -t penguinofthunder/wowbot"
+    },
+    {
+      "type": "npm",
+      "script": "generate-api-schema",
+      "problemMatcher": [],
+      "label": "npm: generate-api-schema",
+      "detail": "npx openapi-typescript https://raw.githubusercontent.com/amamenko/owen-wilson-wow-api/main/openapi.yml --output src/wowapi/schema.ts"
+    }
+  ]
+}

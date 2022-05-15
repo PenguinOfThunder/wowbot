@@ -1,0 +1,11 @@
+{
+    "cSpell.words": [
+        "discordjs",
+        "IIFE",
+        "pino",
+        "wowapi",
+        "wowbot",
+        "wowv"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
+}
