@@ -105,4 +105,5 @@ dist
 
 # custom
 config.json
+!.vscode/launch.json
 .vscode
