@@ -1,4 +1,4 @@
-import { Response } from "node-fetch";
+import type { Response } from "undici";
 
 export class WowApiError extends Error {
   public url?: string;

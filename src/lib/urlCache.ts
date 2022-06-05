@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import { fetch } from "undici";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
@@ -27,6 +27,9 @@ export const fetchContent = async (url: string): Promise<fs.ReadStream> => {
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
+    }
+    if (res.body === null) {
+      throw new Error("null body in response");
     }
     const outs = await fs.promises.open(fileName, "w", 0o600);
     await stream.promises.pipeline(res.body, outs.createWriteStream());

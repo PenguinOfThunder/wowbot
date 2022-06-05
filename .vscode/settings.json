@@ -3,6 +3,7 @@
         "discordjs",
         "IIFE",
         "pino",
+        "undici",
         "wowapi",
         "wowbot",
         "wowv"

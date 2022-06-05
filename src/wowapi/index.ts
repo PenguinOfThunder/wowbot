@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import { fetch } from "undici";
 import * as schema from "./schema";
 import { WowApiError } from "./WowApiError";
 
