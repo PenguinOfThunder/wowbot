@@ -40,6 +40,10 @@ export default ({ logger }: { logger: Logger }): BotEvent<"ready"> => ({
   once: true,
   execute: async (client) => {
     logger.info("Ready on %d guilds", client.guilds.cache.size);
+    logger.debug(
+      "Guilds: %s",
+      client.guilds.cache.map((g) => `"${g.name}"`).join(", ")
+    );
     logger.debug(generateDependencyReport());
     try {
       await watchRandomMovie({ client, logger });
