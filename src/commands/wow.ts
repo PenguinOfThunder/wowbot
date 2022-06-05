@@ -19,7 +19,7 @@ export function wowToMarkdown(wow: Wow): string {
     "";
   return (
     (wow.full_line ? `> ${wow.full_line}` : "") +
-    `\n> \n> \u2015 Owen Wilson ` +
+    `\n> \n> \u2015 Owen Wilson` +
     (wow.character ? ` as *${wow.character}*` : "") +
     (wow.movie ? ` in "${wow.movie}"` : "") +
     (wow.year ? ` (${wow.year})` : "") +
