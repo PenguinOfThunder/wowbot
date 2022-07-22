@@ -13,6 +13,7 @@ import {
 } from "@discordjs/voice";
 import { GuildMember } from "discord.js";
 import { Logger } from "pino";
+import { getOptionValue } from "../lib/commandUtil";
 import { fetchContent } from "../lib/urlCache";
 import type { BotCommand } from "../types";
 import type { WowApiRequest } from "../wowapi";
@@ -35,7 +36,7 @@ function getOrCreateConnection(
       .on("error", (err) => {
         logger.error(err, "Voice connection error");
       })
-      .on<"stateChange">("stateChange", (oldState, newState) => {
+      .on("stateChange", (oldState, newState) => {
         logger.debug(
           "Voice connection changed state from %s to %s",
           oldState.status,
@@ -60,7 +61,7 @@ function createSoundPlayer(logger: Logger) {
     .on("error", (err) => {
       logger.error(err, "Audio Player error");
     })
-    .on<"stateChange">("stateChange", (oldState, newState) => {
+    .on("stateChange", (oldState, newState) => {
       logger.debug(
         "Player changed state from %s to %s",
         oldState.status,
@@ -151,13 +152,15 @@ const command: BotCommand = {
     const { name: channelName } = channel;
 
     const requestParams: WowApiRequest = {
-      director: opts.getString("director") || undefined,
-      movie: opts.getString("movie") || undefined,
-      year: opts.getInteger("year") || undefined,
-      results: Math.min(opts.getInteger("results") || 1, 10),
-      wow_in_movie: opts.getInteger("occurrence") || undefined,
-      sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
-      direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc"
+      director: getOptionValue(opts, "director"),
+      movie: getOptionValue(opts, "movie"),
+      year: getOptionValue(opts, "year"),
+      results: getOptionValue(opts, "results"),
+      wow_in_movie: getOptionValue(opts, "occurrence"),
+      sort: (getOptionValue(opts, "sort_field") ||
+        "year") as WowApiRequest["sort"],
+      direction:
+        getOptionValue(opts, "sort_direction") === "desc" ? "desc" : "asc"
     };
     logger.debug(requestParams, "Executing request for random voice wow");
     const wows = await getRandom(requestParams);

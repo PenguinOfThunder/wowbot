@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
+import { getOptionValue } from "../lib/commandUtil";
 import { joinUpTo } from "../lib/joinUpTo";
 import type { BotCommand } from "../types";
 import type { Wow, WowApiRequest } from "../wowapi";
 import { getRandom } from "../wowapi";
-
 /**
  * Format a Wow suitable to send in a reply
  * @param wow The Wow data
@@ -91,14 +91,17 @@ const command: BotCommand = {
     ) as SlashCommandBuilder,
   execute: async function (interaction, logger) {
     const opts = interaction.options;
+
     const requestParams: WowApiRequest = {
-      director: opts.getString("director") || undefined,
-      movie: opts.getString("movie") || undefined,
-      year: opts.getInteger("year") || undefined,
-      results: opts.getInteger("results") || undefined,
-      wow_in_movie: opts.getInteger("occurrence") || undefined,
-      sort: (opts.getString("sort_field") || "year") as WowApiRequest["sort"],
-      direction: opts.getString("sort_direction") === "desc" ? "desc" : "asc"
+      director: getOptionValue(opts, "director"),
+      movie: getOptionValue(opts, "movie"),
+      year: getOptionValue(opts, "year"),
+      results: getOptionValue(opts, "results"),
+      wow_in_movie: getOptionValue(opts, "occurrence"),
+      sort: (getOptionValue(opts, "sort_field") ||
+        "year") as WowApiRequest["sort"],
+      direction:
+        getOptionValue(opts, "sort_direction") === "desc" ? "desc" : "asc"
     };
     logger.debug(requestParams, "Executing request for random wow");
     const wows = await getRandom(requestParams);

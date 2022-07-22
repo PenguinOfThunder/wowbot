@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-import { Client, Intents } from "discord.js";
+import { Client, IntentsBitField } from "discord.js";
 import "dotenv/config";
 import { registerEvents } from "./events";
 import { logger } from "./logger";
@@ -11,8 +11,8 @@ import { logger } from "./logger";
 // Create a new client instance
 const client = new Client({
   intents: [
-    Intents.FLAGS.GUILDS, // Required for all functions
-    Intents.FLAGS.GUILD_VOICE_STATES // REQUIRED for voice function
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildVoiceStates // REQUIRED for voice function
   ]
 });
 

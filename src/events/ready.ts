@@ -1,7 +1,6 @@
 import { generateDependencyReport } from "@discordjs/voice";
 import { PresenceUpdateStatus } from "discord-api-types/v10";
-import { Client } from "discord.js";
-import { ActivityTypes } from "discord.js/typings/enums";
+import { Client, ActivityType } from "discord.js";
 import type { Logger } from "pino";
 import type { BotEvent } from "../types";
 import { getRandom } from "../wowapi";
@@ -23,7 +22,7 @@ const watchRandomMovie = async ({
     activities: [
       {
         name: randomMovie.movie,
-        type: ActivityTypes.WATCHING
+        type: ActivityType.Watching
       }
     ]
   });

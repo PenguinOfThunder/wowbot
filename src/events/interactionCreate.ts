@@ -10,7 +10,7 @@ export default ({
 }): BotEvent<"interactionCreate"> => ({
   name: "interactionCreate",
   execute: async (interaction) => {
-    if (!interaction.isCommand()) return;
+    if (!interaction.isChatInputCommand()) return;
     try {
       const { commandName, user } = interaction;
       logger.info(
