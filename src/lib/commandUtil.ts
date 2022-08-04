@@ -1,13 +1,15 @@
 import {
   CacheType,
   CommandInteraction,
-  CommandInteractionOptionResolver
+  CommandInteractionOption
 } from "discord.js";
 
-export function getOptionValue<T extends string | boolean | number | undefined>(
+export function getOptionValue<
+  T extends CommandInteractionOption<CacheType>["value"] | null
+>(
   options: CommandInteraction<CacheType>["options"],
   name: string,
-  required: boolean = false
+  required = false
 ): T {
   return options.get(name, required)?.value as T;
 }
