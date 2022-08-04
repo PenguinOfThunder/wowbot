@@ -1,4 +1,8 @@
-import { CacheType, CommandInteraction } from "discord.js";
+import {
+  CacheType,
+  CommandInteraction,
+  CommandInteractionOptionResolver
+} from "discord.js";
 
 export function getOptionValue<T extends string | boolean | number | undefined>(
   options: CommandInteraction<CacheType>["options"],
