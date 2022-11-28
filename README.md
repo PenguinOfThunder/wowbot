@@ -2,7 +2,7 @@
 
 Owen Wilson "Wow" Discord Bot.
 
-Inspired by and powered by the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) (as seen on [HackerNews](https://news.ycombinator.com/item?id=31209924)).
+Inspired by and powered by the [Owen Wilson Wow API](https://owen-wilson-wow-api.onrender.com/) (as seen on [HackerNews](https://news.ycombinator.com/item?id=31209924)).
 
 The bot was built by following the [Discord.js guide](https://discordjs.guide/#before-you-begin) and adapting it for Typescript.
 
@@ -65,7 +65,7 @@ A maximum of 10 clips can be played back at one time. This is in order to avoid 
 
 ## Data Source
 
-This bot gets data from the [Owen Wilson Wow API](https://owen-wilson-wow-api.herokuapp.com/) by Avi Mamenko. All credit for this goes to him. I just created the bot part.
+This bot gets data from the [Owen Wilson Wow API](https://owen-wilson-wow-api.onrender.com/) by Avi Mamenko. All credit for this goes to him. I just created the bot part.
 
 ## Permissions
 

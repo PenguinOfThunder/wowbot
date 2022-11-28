@@ -15,7 +15,7 @@ export type WowMoviesResponse =
 export * from "./WowApiError";
 
 // API paths
-const baseUrl = "https://owen-wilson-wow-api.herokuapp.com/wows";
+const baseUrl = "https://owen-wilson-wow-api.onrender.com/wows";
 const getDirectorsUrl = `${baseUrl}/directors`;
 const getMoviesUrl = `${baseUrl}/movies`;
 const getRandomUrl = `${baseUrl}/random`;
