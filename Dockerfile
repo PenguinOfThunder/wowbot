@@ -1,4 +1,4 @@
-FROM node:lts-buster AS build
+FROM node:lts AS build
 # Workdir
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -8,7 +8,7 @@ COPY . .
 RUN npm run build
 
 # Build the runtime environment
-FROM node:lts-buster AS run
+FROM node:lts AS run
 WORKDIR /usr/bin/app
 COPY --from=build --chown=node:node /usr/src/app/package*.json  ./
 COPY --from=build --chown=node:node /usr/src/app/dist/ ./dist/
