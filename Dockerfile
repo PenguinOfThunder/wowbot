@@ -3,7 +3,7 @@ FROM node:lts AS build
 WORKDIR /usr/src/app
 COPY package*.json ./
 # Build dist, which must include dev tools
-RUN npm install
+RUN npm ci
 COPY . .
 RUN npm run build
 
@@ -13,6 +13,6 @@ WORKDIR /usr/bin/app
 COPY --from=build --chown=node:node /usr/src/app/package*.json  ./
 COPY --from=build --chown=node:node /usr/src/app/dist/ ./dist/
 ENV NODE_ENV=production
-RUN npm ci
+RUN npm ci --omit dev
 USER node:node
 CMD ["npm", "start"]
