@@ -13,7 +13,7 @@
     "prettier": "prettier -c ./src",
     "test": "ts-mocha -p tsconfig.json test/**/*.spec.ts",
     "dockerize": "docker build --pull . -t penguinofthunder/wowbot",
-    "container": "docker run -d --env-file .env penguinofthunder/wowbot",
+    "container": "docker run --env-file .env penguinofthunder/wowbot",
     "deploy-commands": "npm run build ; node ./dist/src/deploy-commands.js",
     "undeploy-commands": "npm run build ; node ./dist/src/deploy-commands.js undeploy",
     "service-up": "docker compose up -d",
