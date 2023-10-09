@@ -54,7 +54,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.40.0",
     "mocha": "10.2.0",
-    "pino-pretty": "10.0.0",
+    "pino-pretty": "10.2.3",
     "prettier": "2.8.8",
     "ts-mocha": "10.0.0",
     "typescript": "^5.0.4"
