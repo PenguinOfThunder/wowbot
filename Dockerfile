@@ -3,7 +3,7 @@ FROM node:lts AS build
 WORKDIR /usr/src/app
 COPY package*.json ./
 # Build dist, which must include dev tools
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY . .
 RUN npm run build
 
@@ -13,6 +13,6 @@ WORKDIR /usr/bin/app
 COPY --from=build --chown=node:node /usr/src/app/package*.json  ./
 COPY --from=build --chown=node:node /usr/src/app/dist/ ./dist/
 ENV NODE_ENV=production
-RUN npm ci --omit dev
+RUN npm ci --omit dev --legacy-peer-deps
 USER node:node
 CMD ["npm", "start"]
