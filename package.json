@@ -51,7 +51,7 @@
     "@tsconfig/node16": "16.1.1",
     "@types/mocha": "10.0.1",
     "@typescript-eslint/eslint-plugin": "6.8.0",
-    "@typescript-eslint/parser": "5.62.0",
+    "@typescript-eslint/parser": "6.21.0",
     "eslint": "8.40.0",
     "mocha": "10.2.0",
     "pino-pretty": "10.2.3",
