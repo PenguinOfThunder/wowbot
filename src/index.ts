@@ -23,7 +23,7 @@ process.once("exit", (code) => {
   } else {
     logger.fatal("Shutting down due to error with exit code=%d", code);
   }
-  client.destroy();
+  void client.destroy();
 });
 
 // Configure Discord events
