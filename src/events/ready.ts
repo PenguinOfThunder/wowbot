@@ -21,7 +21,7 @@ const watchRandomMovie = async ({
     status: PresenceUpdateStatus.Online,
     activities: [
       {
-        name: randomMovie.movie,
+        name: randomMovie.movie ?? "",
         type: ActivityType.Watching
       }
     ]
