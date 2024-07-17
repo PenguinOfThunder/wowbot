@@ -3,7 +3,6 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import stream, { finished } from "node:stream/promises";
 import { Readable } from "node:stream";
 /**
  * Create a base64-encoded sha256 hash of the name with "wowbot-" prefixed.
@@ -23,7 +22,6 @@ export const fetchContent = async (url: string): Promise<fs.ReadStream> => {
   const fileName = path.join(os.tmpdir(), hashName(url));
   if (!fs.existsSync(fileName)) {
     // fetch and save to cache
-    // console.log(`Downloading clip from ${url} to ${fileName}`);
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
@@ -35,6 +33,5 @@ export const fetchContent = async (url: string): Promise<fs.ReadStream> => {
     await fs.promises.writeFile(fileName, src);
   }
   // return from file cache
-  //   console.log(`Streaming clip from ${fileName}`);
   return fs.createReadStream(fileName);
 };
