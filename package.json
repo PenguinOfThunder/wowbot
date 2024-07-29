@@ -45,7 +45,7 @@
     "libsodium-wrappers": "^0.7.14",
     "opusscript": "^0.1.1",
     "pino": "^9.3.1",
-    "undici": "^6.19.2"
+    "undici": "^6.19.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
