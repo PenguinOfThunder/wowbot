@@ -5,6 +5,8 @@ services:
     container_name: wowbot
     image: penguinofthunder/wowbot:${TAG}
     restart: always
+    labels:
+      - "traefik.enable=false"
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN:?Missing DISCORD_TOKEN}
       - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
