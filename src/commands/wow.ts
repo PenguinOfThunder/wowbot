@@ -99,7 +99,7 @@ const command: BotCommand = {
       results: getOptionValue(opts, "results"),
       wow_in_movie: getOptionValue(opts, "occurrence"),
       sort: (getOptionValue(opts, "sort_field") ||
-        "year") as WowApiRequest["sort"],
+        "year"),
       direction:
         getOptionValue(opts, "sort_direction") === "desc" ? "desc" : "asc"
     };
