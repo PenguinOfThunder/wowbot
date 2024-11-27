@@ -21,10 +21,10 @@ export const registerEvents = ({
   ].forEach((ev) => {
     const evName = ev.name;
     if (ev.once) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-misused-promises
       client.once<any>(evName, ev.execute);
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-misused-promises
       client.on<any>(evName, ev.execute);
     }
   });
