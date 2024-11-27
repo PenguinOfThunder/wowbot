@@ -8,7 +8,6 @@ export class WowApiError extends Error {
   constructor(message: string, response: Response) {
     const msg = `${message}\nHTTP ${response.status} ${response.statusText}`;
     super(msg);
-    this.name;
     this.status = response.status;
     this.statusText = response.statusText;
     this.url = response.url;
