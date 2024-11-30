@@ -1,0 +1,4 @@
+{
+  "colorize": "colorette.isColorSupported",
+  "singleLine": true
+}
