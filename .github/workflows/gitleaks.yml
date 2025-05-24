@@ -1,5 +1,7 @@
 # Scan for secrets in the code
 name: gitleaks
+permissions:
+  contents: read
 on:
   workflow_dispatch:
   push:
