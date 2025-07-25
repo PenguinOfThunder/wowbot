@@ -1,3 +1,5 @@
+[![Docker image](https://github.com/PenguinOfThunder/wowbot/actions/workflows/docker-image.yml/badge.svg)](https://github.com/PenguinOfThunder/wowbot/actions/workflows/docker-image.yml)
+
 # Wowbot
 
 Owen Wilson "Wow" Discord Bot.
