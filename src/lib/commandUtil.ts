@@ -1,13 +1,13 @@
 import {
   CacheType,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   CommandInteractionOption
 } from "discord.js";
 
 export function getOptionValue<
   T extends CommandInteractionOption<CacheType>["value"] | null
 >(
-  options: CommandInteraction<CacheType>["options"],
+  options: ChatInputCommandInteraction<CacheType>["options"],
   name: string,
   required = false
 ): T {
