@@ -3,7 +3,7 @@ version: "3.3"
 services:
   wowbot:
     container_name: wowbot
-    image: penguinofthunder/wowbot:${TAG}
+    image: ghcr.io/penguinofthunder/wowbot:${TAG:-main}
     restart: always
     labels:
       - "traefik.enable=false"
