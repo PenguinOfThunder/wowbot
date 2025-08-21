@@ -18,8 +18,8 @@ export default ({
         commandName,
         user.username,
         user.discriminator,
-        interaction.guild?.name,
-        interaction.guildId
+        interaction.guild?.name ?? "",
+        interaction.guildId ?? ""
       );
       const cmd = commands.find((c) => c.data.name === commandName);
       if (cmd) {

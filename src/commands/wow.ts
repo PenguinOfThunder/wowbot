@@ -118,7 +118,7 @@ const command: BotCommand = {
         "\n\n",
         2000 // max number of characters Discord allows in a reply
       );
-      logger.debug("Sending reply to user", content);
+      logger.debug("Sending reply to user");
       await interaction.reply(content);
     }
   }

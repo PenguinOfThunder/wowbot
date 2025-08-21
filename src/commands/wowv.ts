@@ -44,7 +44,7 @@ function getOrCreateConnection(
         );
       })
       .on("debug", (msg) => {
-        logger.debug(msg, "Connection debug");
+        logger.debug("Connection debug: %s", msg);
       });
   }
   return connection;
@@ -69,7 +69,7 @@ function createSoundPlayer(logger: Logger) {
       );
     })
     .on("debug", (msg) => {
-      logger.debug(msg, "Player debug");
+      logger.debug("Player debug: %s", msg);
     });
 }
 
@@ -210,7 +210,7 @@ const command: BotCommand = {
           });
 
           logger.debug(
-            `Playing %s dur %s type %s`,
+            `Playing %s dur %d type %s`,
             wow.audio,
             clip.playbackDuration,
             type

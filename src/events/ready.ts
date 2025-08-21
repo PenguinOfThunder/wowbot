@@ -28,9 +28,9 @@ const watchRandomMovie = async ({
   });
   logger.debug(
     "Set presence to %s. Activity: %s %s",
-    client.user?.presence.status,
-    client.user?.presence.activities[0].type,
-    client.user?.presence.activities[0].name
+    `${client.user?.presence.status}`,
+    `${client.user?.presence.activities[0].type}`,
+    `${client.user?.presence.activities[0].name}`
   );
 };
 
