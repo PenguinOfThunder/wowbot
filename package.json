@@ -40,25 +40,22 @@
     "@discordjs/rest": "^2.6.0",
     "@discordjs/voice": "^0.19.0",
     "@snazzah/davey": "^0.1.6",
-    "discord-api-types": "^0.38.24",
+    "discord-api-types": "^0.38.26",
     "discord.js": "^14.22.1",
     "dotenv": "^17.2.2",
     "ffmpeg-static": "5.2.0",
     "libsodium-wrappers": "^0.7.15",
     "opusscript": "^0.1.1",
-    "pino": "^9.9.5",
+    "pino": "^9.11.0",
     "undici": "^7.16.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.32.0",
-    "@tsconfig/node16": "^16.1.4",
+    "@tsconfig/node16": "^16.1.5",
     "@types/mocha": "^10.0.10",
-    "eslint": "^9.35.0",
     "mocha": "^11.7.2",
     "pino-pretty": "^13.1.1",
     "prettier": "^3.6.2",
     "ts-mocha": "^11.1.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.43.0"
+    "typescript": "^5.9.2"
   }
 }
