@@ -46,7 +46,7 @@
     "ffmpeg-static": "5.2.0",
     "libsodium-wrappers": "^0.7.15",
     "opusscript": "^0.1.1",
-    "pino": "^10.0.0",
+    "pino": "^10.1.0",
     "undici": "^7.16.0"
   },
   "devDependencies": {
