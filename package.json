@@ -35,12 +35,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@discordjs/builders": "1.13.0",
+    "@discordjs/builders": "1.13.1",
     "@discordjs/opus": "0.10.0",
     "@discordjs/rest": "2.6.0",
     "@discordjs/voice": "0.19.0",
     "@snazzah/davey": "0.1.8",
-    "discord-api-types": "0.38.34",
+    "discord-api-types": "^0.38.35",
     "discord.js": "14.25.1",
     "dotenv": "17.2.3",
     "ffmpeg-static": "5.3.0",
@@ -54,7 +54,6 @@
     "@types/mocha": "10.0.10",
     "mocha": "11.7.5",
     "pino-pretty": "13.1.2",
-    "prettier": "3.6.2",
     "ts-mocha": "11.1.0",
     "typescript": "5.9.3"
   }
