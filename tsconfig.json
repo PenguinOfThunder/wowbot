@@ -1,19 +1,21 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "@tsconfig/node-lts/tsconfig.json",
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+    "rootDir": "src",
+    "outDir": "dist",
+    // "moduleResolution": "bundler",
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*",
-    "test/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
