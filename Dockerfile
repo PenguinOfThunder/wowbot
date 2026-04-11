@@ -15,4 +15,4 @@ COPY --from=build --chown=node:node /usr/src/app/dist/ ./dist/
 ENV NODE_ENV=production
 RUN npm ci --omit dev --legacy-peer-deps
 USER node:node
-CMD ["npm", "start"]
+CMD ["node", "/usr/bin/app/dist/index.js"]
