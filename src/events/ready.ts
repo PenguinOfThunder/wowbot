@@ -34,8 +34,8 @@ const watchRandomMovie = async ({
   );
 };
 
-export default ({ logger }: { logger: Logger }): BotEvent<"ready"> => ({
-  name: "ready",
+export default ({ logger }: { logger: Logger }): BotEvent<"clientReady"> => ({
+  name: "clientReady",
   once: true,
   execute: async (client) => {
     logger.info("Ready on %d guilds", client.guilds.cache.size);
