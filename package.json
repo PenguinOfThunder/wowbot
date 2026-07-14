@@ -47,7 +47,7 @@
     "libsodium-wrappers": "0.8.4",
     "opusscript": "0.1.1",
     "pino": "10.3.1",
-    "undici": "7.28.0"
+    "undici": "8.7.0"
   },
   "devDependencies": {
     "@tsconfig/node-lts": "24.0.0",
